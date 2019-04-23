@@ -4,41 +4,58 @@
 #include "node.h"
 
 template <typename Tr>
-class List {     
-    public:
-        typedef typename Tr::T T;
-        typedef typename Tr::Operation Operation;
-      
-    private:
-        Node<T>* head;
-        Operation cmp;
-              
-    public:
-        List() : head(nullptr) {};
+class List
+{
+public:
+    typedef typename Tr::T T;
+    typedef typename Tr::Operation Operation;
 
-        bool find(T search, Node<T> **&pointer) {
-            // TODO
-        }
-             
-        bool insert(T data) {
-            // TODO
-        }
-             
-        bool remove(T item) {
-            // TODO
-        }  
-             
-        int size() {
-            // TODO
-        }
+private:
+    Node<T> *head;
+    Operation cmp;
 
-        T operator[](int index) {
-            // TODO
-        }
+public:
+    List() : head(nullptr){};
 
-        ~List() {
-            // TODO
-        }         
+    bool find(T search, Node<T> **&pointer)
+    {
+        pointer = &head;
+        while (*pointer && cmp(search, (*pointer)->data))
+        {
+
+            if (search == (*pointer)->data)
+            {
+                return true;
+            }
+            pointer = &((*pointer)->next);
+        }
+        return false;
+    }
+
+    bool insert(T data)
+    {
+        // TODO
+    }
+
+    bool remove(T item)
+    {
+        // TODO
+    }
+
+    int size()
+    {
+        // TODO
+    }
+
+    T operator[](int index)
+    {
+        // TODO
+    }
+
+    ~List()
+    {
+        // TODO
+    }
 };
 
 #endif
