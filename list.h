@@ -13,6 +13,7 @@ public:
 private:
     Node<T> *head;
     Operation cmp;
+    int countingElements = 0;
 
 public:
     List() : head(nullptr){};
@@ -34,27 +35,66 @@ public:
 
     bool insert(T data)
     {
-        // TODO
+        Node<T> **pointer;
+        Node<T> *newNode = new Node<T>(data);
+
+        if (find(data, pointer))
+        {
+            newNode->next = *pointer;
+            (*pointer) = newNode;
+            countingElements++;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     bool remove(T item)
     {
-        // TODO
+        Node<T> *temp;
+        Node<T> **pointer;
+
+        if (find(item, pointer))
+        {
+            temp = *pointer;
+            (*pointer) = (*pointer)->next;
+            delete temp;
+            countingElements--;
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     int size()
     {
-        // TODO
+        return countingElements;
     }
 
     T operator[](int index)
     {
-        // TODO
+        if ((index < 0) | (index >= countingElements))
+            throw out_of_range("Out of range!");
+        else
+        {
+            Node<T> **ptr = &head;
+            for (int i = 0; i < index; i++)
+                ptr = &((*ptr)->next);
+            return (*ptr)->data;
+        }
     }
 
     ~List()
     {
-        // TODO
+        if (head)
+        {
+            head->killSelf();
+        }
     }
 };
 
