@@ -56,13 +56,12 @@ public:
         Node<T> *temp;
         Node<T> **pointer;
 
-        if (find(item, pointer))
+        if (!find(item, pointer))
         {
             temp = *pointer;
             (*pointer) = (*pointer)->next;
             delete temp;
             countingElements--;
-
             return true;
         }
         else
