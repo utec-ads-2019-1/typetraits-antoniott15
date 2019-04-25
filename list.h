@@ -40,9 +40,9 @@ public:
 
         if (find(data, pointer))
         {
+            countingElements++;
             newNode->next = *pointer;
             (*pointer) = newNode;
-            countingElements++;
             return true;
         }
         else
@@ -56,12 +56,12 @@ public:
         Node<T> *temp;
         Node<T> **pointer;
 
-        if (!find(item, pointer))
+        if (find(item, pointer))
         {
+            countingElements--;
             temp = *pointer;
             (*pointer) = (*pointer)->next;
             delete temp;
-            countingElements--;
             return true;
         }
         else
@@ -72,7 +72,12 @@ public:
 
     int size()
     {
-        return countingElements;
+        if (countingElements >= 0)
+        {
+            return countingElements;
+        }
+        else
+            throw out_of_range("Invalid in size");
     }
 
     T operator[](int index)
@@ -82,7 +87,7 @@ public:
         else
         {
             Node<T> **ptr = &head;
-            for (int i = 0; i < index; i++)
+            for (int i = 0; i <= index; i++)
                 ptr = &((*ptr)->next);
             return (*ptr)->data;
         }
